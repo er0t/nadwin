@@ -21,7 +21,7 @@ export function Navbar() {
         .from("user_rewards")
         .select("*")
         .eq("user_id", user.id)
-        .single();
+        .maybeSingle();
 
       if (error) throw error;
       return data;
