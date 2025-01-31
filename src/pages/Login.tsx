@@ -27,12 +27,18 @@ export function Login() {
       if (error) {
         console.error("Login error:", error);
         
-        // Show specific error messages based on the error type
-        if (error.message === "Invalid login credentials") {
+        // Show more specific error messages based on the error code
+        if (error.message.includes("Invalid login credentials")) {
           toast({
             variant: "destructive",
             title: "Login Failed",
-            description: "Email or password is incorrect. Please try again.",
+            description: "The email or password you entered is incorrect. If you haven't signed up yet, please create an account first.",
+          });
+        } else if (error.message.includes("Email not confirmed")) {
+          toast({
+            variant: "destructive",
+            title: "Email Not Verified",
+            description: "Please check your email and verify your account before logging in.",
           });
         } else {
           toast({
@@ -41,7 +47,7 @@ export function Login() {
             description: error.message,
           });
         }
-      } else {
+      } else if (data.user) {
         console.log("Login successful:", data);
         toast({
           title: "Success",
