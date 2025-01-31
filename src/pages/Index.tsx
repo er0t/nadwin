@@ -22,7 +22,7 @@ const FEATURED_GAMES = [
   },
 ];
 
-const Index = () => {
+export const Index = () => {
   return (
     <div className="min-h-screen bg-gaming-dark">
       <Navbar />
@@ -51,5 +51,3 @@ const Index = () => {
     </div>
   );
 };
-
-export default Index;
