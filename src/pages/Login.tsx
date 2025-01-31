@@ -17,26 +17,48 @@ export function Login() {
     e.preventDefault();
     setLoading(true);
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    try {
+      console.log("Attempting login with email:", email);
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    if (error) {
+      if (error) {
+        console.error("Login error:", error);
+        
+        // Show specific error messages based on the error type
+        if (error.message === "Invalid login credentials") {
+          toast({
+            variant: "destructive",
+            title: "Login Failed",
+            description: "Email or password is incorrect. Please try again.",
+          });
+        } else {
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: error.message,
+          });
+        }
+      } else {
+        console.log("Login successful:", data);
+        toast({
+          title: "Success",
+          description: "Logged in successfully",
+        });
+        navigate("/");
+      }
+    } catch (err) {
+      console.error("Unexpected error during login:", err);
       toast({
         variant: "destructive",
         title: "Error",
-        description: error.message,
+        description: "An unexpected error occurred. Please try again.",
       });
-    } else {
-      toast({
-        title: "Success",
-        description: "Logged in successfully",
-      });
-      navigate("/");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
