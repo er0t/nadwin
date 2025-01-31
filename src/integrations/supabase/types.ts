@@ -30,6 +30,24 @@ export type Database = {
         }
         Relationships: []
       }
+      user_rewards: {
+        Row: {
+          last_daily_spin: string | null
+          nadronix_points: number
+          user_id: string
+        }
+        Insert: {
+          last_daily_spin?: string | null
+          nadronix_points?: number
+          user_id: string
+        }
+        Update: {
+          last_daily_spin?: string | null
+          nadronix_points?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
