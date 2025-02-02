@@ -4,19 +4,19 @@ import { GameCard } from "@/components/GameCard";
 const FEATURED_GAMES = [
   {
     title: "Free Fire",
-    image: "/placeholder.svg",
+    image: "/lovable-uploads/896cdfad-4b9d-4a9e-ad8d-87d7ebfc73a9.png",
     pointsRequired: 1000,
     surveysAvailable: 5,
   },
   {
     title: "PUBG Mobile",
-    image: "/placeholder.svg",
+    image: "/lovable-uploads/931fb55b-f82b-47bf-9e69-46db4e926d4a.png",
     pointsRequired: 1500,
     surveysAvailable: 3,
   },
   {
     title: "Roblox",
-    image: "/placeholder.svg",
+    image: "/lovable-uploads/e849d7f5-5ecc-47e9-a17a-11b7edffd7ee.png",
     pointsRequired: 2000,
     surveysAvailable: 7,
   },
@@ -25,7 +25,6 @@ const FEATURED_GAMES = [
 export const Index = () => {
   return (
     <div className="min-h-screen bg-gaming-dark">
-      <Navbar />
       <main className="container px-4 pt-20">
         <section className="glass-panel mt-8 p-8">
           <h1 className="text-4xl font-bold">
