@@ -128,15 +128,19 @@ export function Navbar() {
           <span className="text-lg font-bold text-primary">NADWIN</span>
         </Link>
         <nav className="flex flex-1 items-center space-x-6">
-          <Link to="/games" className="nav-link">
-            Games
-          </Link>
-          <Link to="/surveys" className="nav-link">
-            Surveys
-          </Link>
-          <Link to="/rewards" className="nav-link">
-            Rewards
-          </Link>
+          {user && (
+            <>
+              <Link to="/games" className="nav-link">
+                Games
+              </Link>
+              <Link to="/surveys" className="nav-link">
+                Surveys
+              </Link>
+              <Link to="/rewards" className="nav-link">
+                Rewards
+              </Link>
+            </>
+          )}
         </nav>
         <div className="flex items-center space-x-4">
           {user ? (
