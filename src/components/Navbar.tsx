@@ -6,12 +6,20 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+
+const SPIN_REWARDS = [50, 75, 100, 125, 150, 175, 200];
 
 export function Navbar() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isSpinning, setIsSpinning] = useState(false);
+  const [spinResult, setSpinResult] = useState<number | null>(null);
 
   const { data: rewards, refetch: refetchRewards } = useQuery({
     queryKey: ["rewards", user?.id],
@@ -68,14 +76,29 @@ export function Navbar() {
 
     // Random points between 50 and 200
     const pointsWon = Math.floor(Math.random() * 151) + 50;
+    setSpinResult(pointsWon);
 
+    // Simulate spinning animation
+    let spins = 0;
+    const spinInterval = setInterval(() => {
+      setSpinResult(SPIN_REWARDS[Math.floor(Math.random() * SPIN_REWARDS.length)]);
+      spins++;
+      if (spins >= 20) {
+        clearInterval(spinInterval);
+        setSpinResult(pointsWon);
+        updateRewards(pointsWon);
+      }
+    }, 100);
+  };
+
+  const updateRewards = async (pointsWon: number) => {
     const { error } = await supabase
       .from("user_rewards")
       .update({
         nadronix_points: (rewards?.nadronix_points || 0) + pointsWon,
-        last_daily_spin: now.toISOString(),
+        last_daily_spin: new Date().toISOString(),
       })
-      .eq("user_id", user.id);
+      .eq("user_id", user!.id);
 
     if (error) {
       toast({
@@ -91,6 +114,7 @@ export function Navbar() {
       refetchRewards();
     }
     setIsSpinning(false);
+    setTimeout(() => setSpinResult(null), 2000);
   };
 
   const canSpin = user && rewards?.last_daily_spin
@@ -128,16 +152,25 @@ export function Navbar() {
                   {rewards?.nadronix_points || 0}
                 </span>
               </Button>
-              <Button
-                variant={canSpin ? "default" : "ghost"}
-                size="sm"
-                onClick={handleDailySpin}
-                disabled={!canSpin || isSpinning}
-                className="gap-2"
-              >
-                <RefreshCw className={`h-4 w-4 ${isSpinning ? "animate-spin" : ""}`} />
-                Daily Spin
-              </Button>
+              <div className="relative">
+                <Button
+                  variant={canSpin ? "default" : "ghost"}
+                  size="sm"
+                  onClick={handleDailySpin}
+                  disabled={!canSpin || isSpinning}
+                  className="gap-2"
+                >
+                  <RefreshCw className={`h-4 w-4 ${isSpinning ? "animate-spin" : ""}`} />
+                  Daily Spin
+                </Button>
+                {spinResult && (
+                  <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 transform">
+                    <div className="animate-bounce rounded-lg bg-primary px-4 py-2 text-lg font-bold">
+                      +{spinResult}
+                    </div>
+                  </div>
+                )}
+              </div>
               <Button variant="ghost" size="icon">
                 <Award className="h-5 w-5" />
               </Button>
