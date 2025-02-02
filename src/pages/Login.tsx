@@ -24,11 +24,20 @@ export function Login() {
       });
 
       if (error) {
-        toast({
-          variant: "destructive",
-          title: "Login Failed",
-          description: "The email or password you entered is incorrect.",
-        });
+        // Check if the error is due to unconfirmed email
+        if (error.message.includes("Email not confirmed")) {
+          toast({
+            variant: "destructive",
+            title: "Email Not Confirmed",
+            description: "Please check your email and click the confirmation link before logging in.",
+          });
+        } else {
+          toast({
+            variant: "destructive",
+            title: "Login Failed",
+            description: "The email or password you entered is incorrect.",
+          });
+        }
       } else if (data.user) {
         toast({
           title: "Success",
