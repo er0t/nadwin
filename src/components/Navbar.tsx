@@ -7,10 +7,10 @@ import { useToast } from "@/hooks/use-toast";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const SPIN_REWARDS = [50, 75, 100, 125, 150, 175, 200];
 
@@ -174,9 +174,26 @@ export function Navbar() {
               <Button variant="ghost" size="icon">
                 <Award className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="icon">
-                <User className="h-5 w-5" />
-              </Button>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <User className="h-5 w-5" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-80">
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <h4 className="font-medium leading-none">Account Details</h4>
+                      <div className="text-sm text-muted-foreground">
+                        Email: {user.email}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        Password: ••••••••
+                      </div>
+                    </div>
+                  </div>
+                </PopoverContent>
+              </Popover>
               <Button variant="ghost" size="icon" onClick={handleLogout}>
                 <LogOut className="h-5 w-5" />
               </Button>
