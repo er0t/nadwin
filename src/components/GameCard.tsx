@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
 
 interface GameCardProps {
   title: string;
@@ -8,6 +11,23 @@ interface GameCardProps {
 }
 
 export function GameCard({ title, image, pointsRequired, surveysAvailable }: GameCardProps) {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleStartEarning = () => {
+    if (!user) {
+      toast({
+        title: "Login Required",
+        description: "Please login to start earning rewards",
+      });
+      navigate("/login");
+      return;
+    }
+    // Handle start earning logic for logged in users
+    // This will be implemented later when the feature is ready
+  };
+
   return (
     <div className="game-card">
       <img
@@ -21,7 +41,10 @@ export function GameCard({ title, image, pointsRequired, surveysAvailable }: Gam
           <span>{pointsRequired} points required</span>
           <span>{surveysAvailable} surveys</span>
         </div>
-        <Button className="w-full bg-primary text-gaming-dark hover:bg-primary/90">
+        <Button 
+          className="w-full bg-primary text-gaming-dark hover:bg-primary/90"
+          onClick={handleStartEarning}
+        >
           Start Earning
         </Button>
       </div>
