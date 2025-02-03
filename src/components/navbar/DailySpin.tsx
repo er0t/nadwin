@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
 const SPIN_REWARDS = [50, 75, 100, 125, 150, 175, 200];
@@ -11,11 +11,12 @@ const SPIN_REWARDS = [50, 75, 100, 125, 150, 175, 200];
 export function DailySpin() {
   const { user } = useAuth();
   const { toast } = useToast();
+  const queryClient = useQueryClient();
   const [isSpinning, setIsSpinning] = useState(false);
   const [spinResult, setSpinResult] = useState<number | null>(null);
 
   const { data: rewards, refetch: refetchRewards } = useQuery({
-    queryKey: ["rewards", user?.id],
+    queryKey: ["user_rewards", user?.id],
     queryFn: async () => {
       if (!user) return null;
       const { data, error } = await supabase
@@ -84,7 +85,8 @@ export function DailySpin() {
         title: "Congratulations! 🎉",
         description: `You won ${pointsWon} Nadronix points!`,
       });
-      refetchRewards();
+      // Invalidate and refetch both components' data
+      queryClient.invalidateQueries({ queryKey: ["user_rewards", user?.id] });
     }
     setIsSpinning(false);
     setTimeout(() => setSpinResult(null), 2000);

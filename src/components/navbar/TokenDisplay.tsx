@@ -7,7 +7,7 @@ export function TokenDisplay() {
   const { user } = useAuth();
 
   const { data: rewards } = useQuery({
-    queryKey: ["rewards", user?.id],
+    queryKey: ["user_rewards", user?.id],
     queryFn: async () => {
       if (!user) return null;
       const { data, error } = await supabase
