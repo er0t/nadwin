@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Award, LogOut, RefreshCw, User, Wallet } from "lucide-react";
+import { Award, LogOut, RefreshCw, User } from "lucide-react";
 import { Button } from "./ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -129,33 +129,19 @@ export function Navbar() {
         </Link>
         <nav className="flex flex-1 items-center space-x-6">
           {user && (
-            <>
-              <Link to="/games" className="nav-link">
-                Games
-              </Link>
-              <Link to="/surveys" className="nav-link">
-                Surveys
-              </Link>
-              <Link to="/rewards" className="nav-link">
-                Rewards
-              </Link>
-            </>
+            <Link to="/rewards" className="nav-link">
+              Rewards
+            </Link>
           )}
         </nav>
         <div className="flex items-center space-x-4">
           {user ? (
             <>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="relative"
-                onClick={() => navigate("/rewards")}
-              >
-                <Wallet className="h-5 w-5 text-primary" />
-                <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-secondary text-xs">
-                  {rewards?.nadronix_points || 0}
+              <div className="flex items-center space-x-2">
+                <span className="text-sm font-medium text-primary">
+                  {rewards?.nadronix_points || 0} tokens
                 </span>
-              </Button>
+              </div>
               <div className="relative">
                 <Button
                   variant={canSpin ? "default" : "ghost"}
