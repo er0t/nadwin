@@ -15,7 +15,7 @@ export function DailySpin() {
   const [isSpinning, setIsSpinning] = useState(false);
   const [spinResult, setSpinResult] = useState<number | null>(null);
 
-  const { data: rewards, refetch: refetchRewards } = useQuery({
+  const { data: rewards } = useQuery({
     queryKey: ["user_rewards", user?.id],
     queryFn: async () => {
       if (!user) return null;
@@ -66,27 +66,32 @@ export function DailySpin() {
   };
 
   const updateRewards = async (pointsWon: number) => {
-    const { error } = await supabase
-      .from("user_rewards")
-      .update({
-        nadronix_points: (rewards?.nadronix_points || 0) + pointsWon,
-        last_daily_spin: new Date().toISOString(),
-      })
-      .eq("user_id", user!.id);
+    try {
+      const { error } = await supabase
+        .from("user_rewards")
+        .update({
+          nadronix_points: (rewards?.nadronix_points || 0) + pointsWon,
+          last_daily_spin: new Date().toISOString(),
+        })
+        .eq("user_id", user!.id);
 
-    if (error) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to update points",
-      });
-    } else {
-      toast({
-        title: "Congratulations! 🎉",
-        description: `You won ${pointsWon} Nadronix points!`,
-      });
-      // Invalidate and refetch both components' data
-      queryClient.invalidateQueries({ queryKey: ["user_rewards", user?.id] });
+      if (error) {
+        console.error("Error updating rewards:", error);
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to update points",
+        });
+      } else {
+        toast({
+          title: "Congratulations! 🎉",
+          description: `You won ${pointsWon} Nadronix points!`,
+        });
+        // Immediately invalidate and refetch the rewards data
+        await queryClient.invalidateQueries({ queryKey: ["user_rewards", user?.id] });
+      }
+    } catch (error) {
+      console.error("Error in updateRewards:", error);
     }
     setIsSpinning(false);
     setTimeout(() => setSpinResult(null), 2000);
