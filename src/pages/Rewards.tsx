@@ -1,7 +1,8 @@
+
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
-import { DollarSign, Gamepad, Diamond } from "lucide-react";
+import { DollarSign, Gamepad, Diamond, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 
 type RewardOption = {
@@ -99,6 +100,8 @@ export const Rewards = () => {
 
   if (!rewards) return null;
 
+  const showMilestoneMessage = userRewards?.nadronix_points >= 1000;
+
   return (
     <div className="min-h-screen bg-gaming-dark">
       <main className="container px-4 pt-20">
@@ -116,6 +119,16 @@ export const Rewards = () => {
             </span>{" "}
             points available
           </p>
+
+          {showMilestoneMessage && (
+            <div className="mt-6 flex items-center gap-3 rounded-lg border border-primary/20 bg-primary/5 p-4 text-primary">
+              <AlertCircle className="h-5 w-5" />
+              <p>
+                Congratulations! You've reached 1000 points! Check your email
+                within the next 48 hours - we'll send you special reward codes!
+              </p>
+            </div>
+          )}
         </section>
 
         <section className="mt-12 space-y-8">
