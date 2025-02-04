@@ -5,6 +5,7 @@ import { Index } from "@/pages/Index";
 import { Login } from "@/pages/Login";
 import { Signup } from "@/pages/Signup";
 import { NotFound } from "@/pages/NotFound";
+import { Rewards } from "@/pages/Rewards";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/rewards" element={<Rewards />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Toaster />

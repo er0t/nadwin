@@ -30,6 +30,33 @@ export type Database = {
         }
         Relationships: []
       }
+      reward_options: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          name: string
+          points_required: number
+          type: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          name: string
+          points_required: number
+          type: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          name?: string
+          points_required?: number
+          type?: string
+        }
+        Relationships: []
+      }
       user_rewards: {
         Row: {
           last_daily_spin: string | null
