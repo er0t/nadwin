@@ -5,8 +5,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-
-const SPIN_REWARDS = [50, 75, 100, 125, 150, 175, 200];
+import { SPIN_REWARDS, calculateSpinCooldown, generateSpinReward } from "@/utils/spinUtils";
+import { SpinResult } from "./SpinResult";
 
 export function DailySpin() {
   const { user } = useAuth();
@@ -35,13 +35,10 @@ export function DailySpin() {
     if (!user || isSpinning) return;
 
     setIsSpinning(true);
-    const now = new Date();
     const lastSpin = rewards?.last_daily_spin ? new Date(rewards.last_daily_spin) : null;
+    const hoursLeft = calculateSpinCooldown(lastSpin);
     
-    if (lastSpin && now.getTime() - lastSpin.getTime() < 24 * 60 * 60 * 1000) {
-      const hoursLeft = Math.ceil(
-        (24 - (now.getTime() - lastSpin.getTime()) / (60 * 60 * 1000))
-      );
+    if (hoursLeft) {
       toast({
         title: "Wait a bit!",
         description: `You can spin again in ${hoursLeft} hours`,
@@ -50,7 +47,7 @@ export function DailySpin() {
       return;
     }
 
-    const pointsWon = Math.floor(Math.random() * 151) + 50;
+    const pointsWon = generateSpinReward();
     setSpinResult(pointsWon);
 
     let spins = 0;
@@ -87,7 +84,6 @@ export function DailySpin() {
           title: "Congratulations! 🎉",
           description: `You won ${pointsWon} Nadronix points!`,
         });
-        // Immediately invalidate and refetch the rewards data
         await queryClient.invalidateQueries({ queryKey: ["user_rewards", user?.id] });
       }
     } catch (error) {
@@ -115,13 +111,7 @@ export function DailySpin() {
         <RefreshCw className={`h-4 w-4 ${isSpinning ? "animate-spin" : ""}`} />
         Daily Spin
       </Button>
-      {spinResult && (
-        <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 transform">
-          <div className="animate-bounce rounded-lg bg-primary px-4 py-2 text-lg font-bold">
-            +{spinResult}
-          </div>
-        </div>
-      )}
+      <SpinResult points={spinResult} />
     </div>
   );
 }
