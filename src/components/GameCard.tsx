@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
-import { useEffect, useRef } from "react";
 
 interface GameCardProps {
   title: string;
@@ -16,31 +15,6 @@ export function GameCard({ title, image, pointsRequired, surveysAvailable }: Gam
   const { user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const scriptRef = useRef<HTMLScriptElement | null>(null);
-
-  const loadPlayableScript = () => {
-    if (!scriptRef.current) {
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = 'https://playabledownload.com/script_include.php?id=1782205';
-      script.async = true;
-      script.onload = () => {
-        toast({
-          title: "Survey Loaded",
-          description: "You can now start earning points!",
-        });
-      };
-      script.onerror = () => {
-        toast({
-          title: "Error",
-          description: "Failed to load survey. Please try again later.",
-          variant: "destructive",
-        });
-      };
-      document.body.appendChild(script);
-      scriptRef.current = script;
-    }
-  };
 
   const handleStartEarning = () => {
     if (!user) {
@@ -51,18 +25,9 @@ export function GameCard({ title, image, pointsRequired, surveysAvailable }: Gam
       navigate("/login");
       return;
     }
-    loadPlayableScript();
+    
+    window.open("https://playabledownload.com/1782211", "_blank");
   };
-
-  // Cleanup script when component unmounts
-  useEffect(() => {
-    return () => {
-      if (scriptRef.current) {
-        document.body.removeChild(scriptRef.current);
-        scriptRef.current = null;
-      }
-    };
-  }, []);
 
   return (
     <div className="game-card">
