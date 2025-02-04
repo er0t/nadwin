@@ -105,28 +105,35 @@ export const Rewards = () => {
   return (
     <div className="min-h-screen bg-gaming-dark">
       <main className="container px-4 pt-20">
-        <section className="glass-panel mt-8 p-8">
-          <h1 className="text-4xl font-bold">
+        <section className="glass-panel mt-8 p-8 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#2A2F3C]/50 to-transparent pointer-events-none" />
+          <h1 className="text-4xl font-bold relative z-10">
             Withdraw your{" "}
-            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#9b87f5] to-[#1EAEDB] bg-clip-text text-transparent animate-gradient">
               Rewards
             </span>
           </h1>
-          <p className="mt-4 text-lg text-foreground/60">
+          <p className="mt-4 text-lg text-foreground/60 relative z-10">
             You have{" "}
-            <span className="font-bold text-primary">
+            <span className="font-bold bg-gradient-to-r from-[#1EAEDB] to-[#9b87f5] bg-clip-text text-transparent">
               {userRewards?.nadronix_points || 0}
             </span>{" "}
             points available
           </p>
 
           {showMilestoneMessage && (
-            <div className="mt-6 flex items-center gap-3 rounded-lg border border-primary/20 bg-primary/5 p-4 text-primary">
-              <AlertCircle className="h-5 w-5" />
-              <p>
-                Congratulations! You've reached 1000 points! Check your email
-                within the next 48 hours - we'll send you special reward codes!
-              </p>
+            <div className="mt-6 relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#9b87f5]/10 to-[#1EAEDB]/10 animate-pulse rounded-lg" />
+              <div className="relative flex items-center gap-3 rounded-lg border border-[#9b87f5]/20 bg-[#1A1F2C]/40 backdrop-blur-xl p-6 shadow-[0_0_15px_rgba(155,135,245,0.1)]">
+                <AlertCircle className="h-6 w-6 text-[#9b87f5]" />
+                <div>
+                  <h3 className="font-bold text-[#9b87f5] mb-1">Achievement Unlocked! 🎉</h3>
+                  <p className="text-foreground/80">
+                    You've reached <span className="text-[#1EAEDB]">1000 points</span>! Check your email
+                    within the next 48 hours - we'll send you special reward codes!
+                  </p>
+                </div>
+              </div>
             </div>
           )}
         </section>
@@ -142,10 +149,13 @@ export const Rewards = () => {
                 {typeRewards.map((reward) => (
                   <div
                     key={reward.id}
-                    className="flex flex-col justify-between rounded-lg bg-gaming-card p-6 transition-transform hover:scale-105"
+                    className="group relative flex flex-col justify-between rounded-lg bg-gaming-card p-6 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(155,135,245,0.15)]"
                   >
-                    <div>
-                      <h3 className="text-xl font-semibold">{reward.name}</h3>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#9b87f5]/5 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="relative z-10">
+                      <h3 className="text-xl font-semibold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+                        {reward.name}
+                      </h3>
                       <p className="mt-2 text-foreground/60">
                         {reward.points_required} points required
                       </p>
@@ -156,7 +166,7 @@ export const Rewards = () => {
                         !userRewards ||
                         userRewards.nadronix_points < reward.points_required
                       }
-                      className="mt-4 w-full rounded-lg bg-primary px-4 py-2 font-medium text-black transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="relative z-10 mt-4 w-full rounded-lg bg-gradient-to-r from-[#9b87f5] to-[#1EAEDB] px-4 py-2 font-medium text-black transition-all hover:shadow-[0_0_20px_rgba(155,135,245,0.3)] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:shadow-none"
                     >
                       Claim Reward
                     </button>
