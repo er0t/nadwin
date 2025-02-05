@@ -1,7 +1,6 @@
-
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { DollarSign, Gamepad, Diamond, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -54,6 +53,7 @@ const getTypeLabel = (type: RewardOption["type"]) => {
 
 export const Rewards = () => {
   const { user } = useAuth();
+  const queryClient = useQueryClient();
   const [selectedReward, setSelectedReward] = useState<RewardOption | null>(null);
   const [claimEmail, setClaimEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -126,6 +126,12 @@ export const Rewards = () => {
         .eq("user_id", user.id);
 
       if (updateError) throw updateError;
+
+      // Immediately update the cache with the new points balance
+      queryClient.setQueryData(["user_rewards", user.id], {
+        ...userRewards,
+        nadronix_points: userRewards.nadronix_points - selectedReward.points_required,
+      });
 
       toast.success(
         `Reward claim submitted! We'll send the ${selectedReward.name} to ${claimEmail} soon.`,
