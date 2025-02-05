@@ -4,7 +4,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import { DollarSign, Gamepad, Diamond, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
-import { Dialog } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 
@@ -231,13 +238,13 @@ export const Rewards = () => {
         </section>
 
         <Dialog open={!!selectedReward} onOpenChange={() => setSelectedReward(null)}>
-          <Dialog.Content className="sm:max-w-[425px]">
-            <Dialog.Header>
-              <Dialog.Title>Claim {selectedReward?.name}</Dialog.Title>
-              <Dialog.Description>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Claim {selectedReward?.name}</DialogTitle>
+              <DialogDescription>
                 Enter the email address where you want to receive your reward code.
-              </Dialog.Description>
-            </Dialog.Header>
+              </DialogDescription>
+            </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
                 <Input
@@ -250,7 +257,7 @@ export const Rewards = () => {
                 />
               </div>
             </div>
-            <Dialog.Footer>
+            <DialogFooter>
               <button
                 onClick={() => setSelectedReward(null)}
                 className="px-4 py-2 rounded-lg bg-gaming-card text-foreground/60 hover:text-foreground transition-colors"
@@ -265,8 +272,8 @@ export const Rewards = () => {
               >
                 {isSubmitting ? "Claiming..." : "Confirm Claim"}
               </button>
-            </Dialog.Footer>
-          </Dialog.Content>
+            </DialogFooter>
+          </DialogContent>
         </Dialog>
       </main>
     </div>
