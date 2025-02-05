@@ -26,31 +26,33 @@ const FEATURED_GAMES = [
 export const Index = () => {
   return (
     <div className="min-h-screen bg-gaming-dark bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gaming-dark via-gaming-dark to-black/90">
-      <main className="container px-4 pt-20">
-        <section className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-gaming-card/50 to-transparent p-8 backdrop-blur-xl">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#9b87f5]/5 to-transparent opacity-50" />
-          <div className="relative z-10 space-y-4">
-            <h1 className="text-5xl font-bold tracking-tight">
-              Welcome to{" "}
-              <span className="animate-gradient bg-gradient-to-r from-[#9b87f5] to-[#1EAEDB] bg-clip-text bg-[length:200%_auto] text-transparent">
-                Nadwin
-              </span>
-            </h1>
-            <p className="max-w-2xl text-lg text-foreground/60">
-              Complete surveys, earn points, and get rewarded with in-game currency. Join our
-              community of gamers and start earning today.
-            </p>
+      <main className="container mx-auto px-4 pt-20">
+        <section className="mx-auto max-w-4xl text-center">
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-gaming-card/50 to-transparent p-12 backdrop-blur-xl">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#9b87f5]/5 to-transparent opacity-50" />
+            <div className="relative z-10 mx-auto max-w-2xl space-y-6">
+              <h1 className="text-6xl font-light tracking-tight">
+                Welcome to{" "}
+                <span className="gradient-text font-medium">
+                  Nadwin
+                </span>
+              </h1>
+              <p className="hero-text text-xl">
+                Complete surveys, earn points, and get rewarded with in-game currency. 
+                Join our community of gamers and start earning today.
+              </p>
+            </div>
+            <div className="absolute -bottom-4 -right-4 h-32 w-32 animate-pulse rounded-full bg-[#9b87f5]/10 blur-3xl" />
+            <div className="absolute -top-4 -left-4 h-32 w-32 animate-pulse rounded-full bg-[#9b87f5]/10 blur-3xl" />
           </div>
-          <div className="absolute -bottom-4 -right-4 h-32 w-32 animate-pulse rounded-full bg-[#9b87f5]/10 blur-3xl" />
-          <div className="absolute -top-4 -left-4 h-32 w-32 animate-pulse rounded-full bg-[#1EAEDB]/10 blur-3xl" />
         </section>
 
-        <section className="mt-16">
+        <section className="mt-20">
           <div className="flex items-center justify-between">
-            <h2 className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-2xl font-bold tracking-tight text-transparent">
+            <h2 className="gradient-text text-3xl font-light tracking-wide">
               Featured Games
             </h2>
-            <div className="h-[1px] flex-1 bg-gradient-to-r from-white/20 to-transparent ml-4" />
+            <div className="ml-4 h-[1px] flex-1 bg-gradient-to-r from-[#9b87f5]/20 to-transparent" />
           </div>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {FEATURED_GAMES.map((game) => (

@@ -26,7 +26,7 @@
 
 @layer components {
   .game-card {
-    @apply relative overflow-hidden rounded-xl bg-gaming-card p-4 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_15px_rgba(0,255,136,0.3)];
+    @apply relative overflow-hidden rounded-xl bg-gaming-card p-4 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_15px_rgba(155,135,245,0.3)];
   }
 
   .nav-link {
@@ -38,20 +38,22 @@
   }
 
   .neon-border {
-    @apply border border-primary/50 shadow-[0_0_15px_rgba(0,255,136,0.3)];
+    @apply border border-[#9b87f5]/50 shadow-[0_0_15px_rgba(155,135,245,0.3)];
+  }
+
+  .hero-text {
+    @apply text-center font-light tracking-wide text-white/80;
+  }
+
+  .gradient-text {
+    @apply animate-gradient bg-gradient-to-r from-[#9b87f5] to-[#c4b8f7] bg-clip-text bg-[length:200%_auto] text-transparent;
   }
 }
 
 @keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .animate-gradient {
