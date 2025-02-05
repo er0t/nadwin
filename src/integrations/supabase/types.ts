@@ -30,6 +30,51 @@ export type Database = {
         }
         Relationships: []
       }
+      reward_claims: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          reward_id: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          reward_id: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          reward_id?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_reward_claims_reward"
+            columns: ["reward_id"]
+            isOneToOne: false
+            referencedRelation: "reward_options"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reward_claims_reward_id_fkey"
+            columns: ["reward_id"]
+            isOneToOne: false
+            referencedRelation: "reward_options"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       reward_options: {
         Row: {
           amount: number

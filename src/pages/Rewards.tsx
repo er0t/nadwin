@@ -4,6 +4,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import { DollarSign, Gamepad, Diamond, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
+import { Dialog } from "@/components/ui/dialog";
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
 
 type RewardOption = {
   id: string;
@@ -44,6 +47,9 @@ const getTypeLabel = (type: RewardOption["type"]) => {
 
 export const Rewards = () => {
   const { user } = useAuth();
+  const [selectedReward, setSelectedReward] = useState<RewardOption | null>(null);
+  const [claimEmail, setClaimEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { data: rewards } = useQuery({
     queryKey: ["reward_options"],
@@ -74,20 +80,57 @@ export const Rewards = () => {
     enabled: !!user,
   });
 
-  const handleRewardClaim = (reward: RewardOption) => {
-    if (!user) {
+  const handleRewardClaim = async () => {
+    if (!user || !selectedReward) {
       toast.error("Please login to claim rewards");
       return;
     }
 
-    if (!userRewards || userRewards.nadronix_points < reward.points_required) {
+    if (!userRewards || userRewards.nadronix_points < selectedReward.points_required) {
       toast.error("Not enough points to claim this reward");
       return;
     }
 
-    toast.success(
-      `Reward claim initiated! We'll process your ${reward.name} soon.`,
-    );
+    if (!claimEmail) {
+      toast.error("Please enter your email address");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Insert the reward claim
+      const { error: claimError } = await supabase
+        .from("reward_claims")
+        .insert({
+          user_id: user.id,
+          reward_id: selectedReward.id,
+          email: claimEmail,
+        });
+
+      if (claimError) throw claimError;
+
+      // Update user points
+      const { error: updateError } = await supabase
+        .from("user_rewards")
+        .update({ 
+          nadronix_points: userRewards.nadronix_points - selectedReward.points_required 
+        })
+        .eq("user_id", user.id);
+
+      if (updateError) throw updateError;
+
+      toast.success(
+        `Reward claim submitted! We'll send the ${selectedReward.name} to ${claimEmail} soon.`,
+      );
+      setSelectedReward(null);
+      setClaimEmail("");
+    } catch (error: any) {
+      toast.error("Failed to claim reward. Please try again.");
+      console.error("Claim error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const rewardsByType = rewards?.reduce((acc, reward) => {
@@ -161,7 +204,17 @@ export const Rewards = () => {
                       </p>
                     </div>
                     <button
-                      onClick={() => handleRewardClaim(reward)}
+                      onClick={() => {
+                        if (!user) {
+                          toast.error("Please login to claim rewards");
+                          return;
+                        }
+                        if (!userRewards || userRewards.nadronix_points < reward.points_required) {
+                          toast.error("Not enough points to claim this reward");
+                          return;
+                        }
+                        setSelectedReward(reward);
+                      }}
                       disabled={
                         !userRewards ||
                         userRewards.nadronix_points < reward.points_required
@@ -176,6 +229,45 @@ export const Rewards = () => {
             </div>
           ))}
         </section>
+
+        <Dialog open={!!selectedReward} onOpenChange={() => setSelectedReward(null)}>
+          <Dialog.Content className="sm:max-w-[425px]">
+            <Dialog.Header>
+              <Dialog.Title>Claim {selectedReward?.name}</Dialog.Title>
+              <Dialog.Description>
+                Enter the email address where you want to receive your reward code.
+              </Dialog.Description>
+            </Dialog.Header>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={claimEmail}
+                  onChange={(e) => setClaimEmail(e.target.value)}
+                  disabled={isSubmitting}
+                />
+              </div>
+            </div>
+            <Dialog.Footer>
+              <button
+                onClick={() => setSelectedReward(null)}
+                className="px-4 py-2 rounded-lg bg-gaming-card text-foreground/60 hover:text-foreground transition-colors"
+                disabled={isSubmitting}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleRewardClaim}
+                disabled={isSubmitting}
+                className="relative z-10 px-4 py-2 rounded-lg bg-gradient-to-r from-[#9b87f5] to-[#1EAEDB] font-medium text-black transition-all hover:shadow-[0_0_20px_rgba(155,135,245,0.3)] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:shadow-none"
+              >
+                {isSubmitting ? "Claiming..." : "Confirm Claim"}
+              </button>
+            </Dialog.Footer>
+          </Dialog.Content>
+        </Dialog>
       </main>
     </div>
   );
