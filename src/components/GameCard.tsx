@@ -33,9 +33,9 @@ export function GameCard({ title, image, surveysAvailable }: GameCardProps) {
   return (
     <div className="group relative">
       <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-[#9b87f5] to-[#c4b8f7] opacity-0 blur transition duration-300 group-hover:opacity-30" />
-      <div className="relative flex flex-col justify-between rounded-xl bg-gaming-card p-6 ring-1 ring-white/10 transition-all duration-300 hover:scale-[1.02] hover:bg-gaming-accent">
+      <div className="relative flex flex-col justify-between rounded-xl bg-gaming-card p-4 sm:p-6 ring-1 ring-white/10 transition-all duration-300 hover:scale-[1.02] hover:bg-gaming-accent">
         <div className="absolute inset-0 bg-gradient-to-br from-[#9b87f5]/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <div className="relative z-10 space-y-4">
+        <div className="relative z-10 space-y-3 sm:space-y-4">
           <div className="relative aspect-video overflow-hidden rounded-lg">
             <img
               src={image}
@@ -45,20 +45,20 @@ export function GameCard({ title, image, surveysAvailable }: GameCardProps) {
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           </div>
           <div className="space-y-2">
-            <h3 className="text-xl font-light tracking-wide text-white group-hover:gradient-text">
+            <h3 className="text-lg sm:text-xl font-light tracking-wide text-white group-hover:gradient-text">
               {title}
             </h3>
-            <div className="flex items-center gap-2 text-sm text-foreground/60">
+            <div className="flex items-center gap-2 text-xs sm:text-sm text-foreground/60">
               <Gamepad2 className="h-4 w-4" />
               <span>{surveysAvailable} surveys available</span>
             </div>
           </div>
         </div>
         <Button 
-          className="relative z-10 mt-6 w-full bg-gradient-to-r from-[#9b87f5] to-[#c4b8f7] text-white transition-all hover:shadow-[0_0_20px_rgba(155,135,245,0.3)]"
+          className="relative z-10 mt-4 sm:mt-6 w-full bg-gradient-to-r from-[#9b87f5] to-[#c4b8f7] text-white transition-all hover:shadow-[0_0_20px_rgba(155,135,245,0.3)]"
           onClick={handleStartEarning}
         >
-          <span className="font-light tracking-wide">Start Earning</span>
+          <span className="font-light tracking-wide text-sm sm:text-base">Start Earning</span>
           <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
       </div>
