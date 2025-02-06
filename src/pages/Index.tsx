@@ -27,8 +27,8 @@ export const Index = () => {
   return (
     <div className="min-h-screen bg-gaming-dark bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gaming-dark via-gaming-dark to-black/90 relative overflow-hidden">
       {/* Neon ball light effect */}
-      <div className="absolute top-[-20%] left-[30%] w-[500px] h-[500px] rounded-full bg-[#8B5CF6] opacity-30 blur-[100px] animate-pulse" />
-      <div className="absolute bottom-[-10%] right-[20%] w-[400px] h-[400px] rounded-full bg-[#D946EF] opacity-20 blur-[80px] animate-pulse" />
+      <div className="absolute top-[-20%] left-[30%] w-[500px] h-[500px] rounded-full bg-[#8B5CF6] opacity-30 blur-[100px]" />
+      <div className="absolute bottom-[-10%] right-[20%] w-[400px] h-[400px] rounded-full bg-[#D946EF] opacity-20 blur-[80px]" />
       
       <main className="container mx-auto px-4 pt-20 relative z-10">
         <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
@@ -46,8 +46,8 @@ export const Index = () => {
                 Join our community of gamers and start earning today.
               </p>
             </div>
-            <div className="absolute -bottom-4 -right-4 h-24 w-24 sm:h-32 sm:w-32 animate-pulse rounded-full bg-[#9b87f5]/10 blur-3xl" />
-            <div className="absolute -top-4 -left-4 h-24 w-24 sm:h-32 sm:w-32 animate-pulse rounded-full bg-[#9b87f5]/10 blur-3xl" />
+            <div className="absolute -bottom-4 -right-4 h-24 w-24 sm:h-32 sm:w-32 rounded-full bg-[#9b87f5]/10 blur-3xl" />
+            <div className="absolute -top-4 -left-4 h-24 w-24 sm:h-32 sm:w-32 rounded-full bg-[#9b87f5]/10 blur-3xl" />
           </div>
         </section>
 
