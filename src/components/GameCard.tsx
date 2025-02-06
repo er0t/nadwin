@@ -31,16 +31,16 @@ export function GameCard({ title, image, surveysAvailable }: GameCardProps) {
   };
 
   return (
-    <div className="group relative">
+    <div className="relative">
       <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-[#9b87f5] to-[#c4b8f7] opacity-0 blur transition duration-300 group-hover:opacity-30" />
-      <div className="relative flex flex-col justify-between rounded-xl bg-gaming-card p-4 sm:p-6 ring-1 ring-white/10 transition-all duration-300 hover:scale-[1.02] hover:bg-gaming-accent">
+      <div className="relative flex flex-col justify-between rounded-xl bg-gaming-card p-4 sm:p-6 ring-1 ring-white/10">
         <div className="absolute inset-0 bg-gradient-to-br from-[#9b87f5]/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         <div className="relative z-10 space-y-3 sm:space-y-4">
           <div className="relative aspect-video overflow-hidden rounded-lg">
             <img
               src={image}
               alt={title}
-              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+              className="h-full w-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           </div>

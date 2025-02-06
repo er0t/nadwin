@@ -25,8 +25,12 @@ const FEATURED_GAMES = [
 
 export const Index = () => {
   return (
-    <div className="min-h-screen bg-gaming-dark bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gaming-dark via-gaming-dark to-black/90">
-      <main className="container mx-auto px-4 pt-20">
+    <div className="min-h-screen bg-gaming-dark bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gaming-dark via-gaming-dark to-black/90 relative overflow-hidden">
+      {/* Neon ball light effect */}
+      <div className="absolute top-[-20%] left-[30%] w-[500px] h-[500px] rounded-full bg-[#8B5CF6] opacity-30 blur-[100px] animate-pulse" />
+      <div className="absolute bottom-[-10%] right-[20%] w-[400px] h-[400px] rounded-full bg-[#D946EF] opacity-20 blur-[80px] animate-pulse" />
+      
+      <main className="container mx-auto px-4 pt-20 relative z-10">
         <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-gaming-card/50 to-transparent p-6 sm:p-12 backdrop-blur-xl">
             <div className="absolute inset-0 bg-gradient-to-br from-[#9b87f5]/5 to-transparent opacity-50" />
