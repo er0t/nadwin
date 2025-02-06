@@ -20,7 +20,7 @@
   }
 
   body {
-    @apply bg-gaming-dark text-foreground antialiased;
+    @apply bg-gaming-dark text-foreground antialiased min-h-screen overflow-x-hidden;
   }
 }
 
@@ -42,7 +42,7 @@
   }
 
   .hero-text {
-    @apply text-center font-light tracking-wide text-white/80;
+    @apply text-center font-light tracking-wide text-white/80 px-4 sm:px-0;
   }
 
   .gradient-text {
@@ -68,7 +68,7 @@
 }
 
 .logo:hover {
-  filter: drop-shadow(0 0 2em rgba(0, 255, 136, 0.5));
+  filter: drop-shadow(0 0 2em rgba(155, 135, 245, 0.5));
 }
 
 @keyframes logo-spin {
