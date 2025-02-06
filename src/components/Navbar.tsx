@@ -1,3 +1,4 @@
+
 import { Link, useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
 import { Button } from "./ui/button";
@@ -34,7 +35,7 @@ export function Navbar() {
     <header className="fixed top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <Link to="/" className="mr-6 flex items-center space-x-2">
-          <span className="text-lg font-bold text-primary">NADWIN</span>
+          <span className="gradient-text text-lg font-bold">NADWIN</span>
         </Link>
         <nav className="flex flex-1 items-center space-x-6">
           {user && (
@@ -49,12 +50,21 @@ export function Navbar() {
               <TokenDisplay />
               <DailySpin />
               <UserMenu />
-              <Button variant="ghost" size="icon" onClick={handleLogout}>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={handleLogout}
+                className="text-[#9b87f5] hover:text-[#c4b8f7] hover:bg-[#9b87f5]/10"
+              >
                 <LogOut className="h-5 w-5" />
               </Button>
             </>
           ) : (
-            <Button variant="default" onClick={() => navigate("/login")}>
+            <Button 
+              variant="default" 
+              onClick={() => navigate("/login")}
+              className="bg-[#9b87f5] hover:bg-[#c4b8f7] text-white transition-colors"
+            >
               Sign In
             </Button>
           )}

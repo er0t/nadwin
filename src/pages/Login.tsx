@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -24,7 +25,6 @@ export function Login() {
       });
 
       if (error) {
-        // Check if the error is due to unconfirmed email
         if (error.message.includes("Email not confirmed")) {
           toast({
             variant: "destructive",
@@ -60,7 +60,7 @@ export function Login() {
     <div className="container flex h-screen w-full flex-col items-center justify-center">
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight text-primary">
+          <h1 className="gradient-text text-2xl font-semibold tracking-tight">
             Welcome back
           </h1>
           <p className="text-sm text-muted-foreground">
@@ -78,6 +78,7 @@ export function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              className="bg-gaming-card border-white/10 focus:border-[#9b87f5] focus:ring-[#9b87f5]"
             />
           </div>
           <div className="space-y-2">
@@ -88,9 +89,14 @@ export function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              className="bg-gaming-card border-white/10 focus:border-[#9b87f5] focus:ring-[#9b87f5]"
             />
           </div>
-          <Button type="submit" className="w-full" disabled={loading}>
+          <Button 
+            type="submit" 
+            className="w-full bg-[#9b87f5] hover:bg-[#c4b8f7] text-white transition-colors"
+            disabled={loading}
+          >
             {loading ? "Loading..." : "Sign In"}
           </Button>
         </form>
@@ -99,7 +105,7 @@ export function Login() {
           Don't have an account?{" "}
           <Button
             variant="link"
-            className="p-0 text-primary"
+            className="p-0 text-[#9b87f5] hover:text-[#c4b8f7]"
             onClick={() => navigate("/signup")}
           >
             Sign up

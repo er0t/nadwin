@@ -68,7 +68,7 @@
 }
 
 .logo:hover {
-  filter: drop-shadow(0 0 2em rgba(0, 255, 136, 0.5));
+  filter: drop-shadow(0 0 2em rgba(155, 135, 245, 0.5));
 }
 
 @keyframes logo-spin {
