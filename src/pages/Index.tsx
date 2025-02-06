@@ -5,19 +5,19 @@ import { GameCard } from "@/components/GameCard";
 const FEATURED_GAMES = [
   {
     title: "Free Fire",
-    image: "/lovable-uploads/896cdfad-4b9d-4a9e-ad8d-87d7ebfc73a9.png",
+    image: "/lovable-uploads/271fc6df-5c22-48ea-9cfd-cd1286f7ca46.png",
     pointsRequired: null,
     surveysAvailable: 5,
   },
   {
     title: "PUBG Mobile",
-    image: "/lovable-uploads/931fb55b-f82b-47bf-9e69-46db4e926d4a.png",
+    image: "/lovable-uploads/aa35bc6e-8b1d-4e77-8fcb-b0ceabaf842d.png",
     pointsRequired: null,
     surveysAvailable: 3,
   },
   {
     title: "Roblox",
-    image: "/lovable-uploads/e849d7f5-5ecc-47e9-a17a-11b7edffd7ee.png",
+    image: "/lovable-uploads/20967e92-fc8c-4d6e-ac18-226ac05a275b.png",
     pointsRequired: null,
     surveysAvailable: 7,
   },
