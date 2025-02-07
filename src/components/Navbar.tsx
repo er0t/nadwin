@@ -1,6 +1,6 @@
 
 import { Link, useNavigate } from "react-router-dom";
-import { LogOut, Menu } from "lucide-react";
+import { LogOut, Menu, User } from "lucide-react";
 import { Button } from "./ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -97,35 +97,43 @@ export function Navbar() {
 
       {/* Mobile Menu */}
       {isMobile && isMenuOpen && user && (
-        <div className="container animate-fade-in border-t border-border/40">
-          <div className="py-4 space-y-4">
+        <div className="absolute top-[56px] left-0 right-0 animate-in slide-in-from-top duration-300 border-t border-border/40 bg-background/95 backdrop-blur-xl">
+          <div className="container py-4 space-y-3">
             <Link 
               to="/rewards" 
-              className="block px-4 py-2 text-sm hover:bg-gaming-card rounded-lg transition-colors"
+              className="flex items-center px-4 py-3 text-sm hover:bg-[#9b87f5]/10 rounded-lg transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              Rewards
+              <div className="flex items-center flex-1">
+                <span className="text-foreground/80">Rewards</span>
+              </div>
             </Link>
-            <div className="px-4">
-              <TokenDisplay />
+            
+            <div className="px-4 py-2 space-y-3">
+              <div className="bg-gaming-card/50 rounded-lg p-3">
+                <TokenDisplay />
+              </div>
+              <div className="bg-gaming-card/50 rounded-lg p-3">
+                <DailySpin />
+              </div>
             </div>
-            <div className="px-4">
-              <DailySpin />
+
+            <div className="border-t border-border/40 pt-3">
+              <div className="px-4">
+                <UserMenu />
+              </div>
+              <Button 
+                variant="ghost" 
+                onClick={handleLogout}
+                className="w-full justify-start mt-2 px-4 py-3 text-[#9b87f5] hover:text-[#c4b8f7] hover:bg-[#9b87f5]/10"
+              >
+                <LogOut className="h-5 w-5 mr-2" />
+                Sign Out
+              </Button>
             </div>
-            <div className="px-4">
-              <UserMenu />
-            </div>
-            <Button 
-              variant="ghost" 
-              onClick={handleLogout}
-              className="w-full justify-start px-4 text-[#9b87f5] hover:text-[#c4b8f7] hover:bg-[#9b87f5]/10"
-            >
-              <LogOut className="h-5 w-5 mr-2" />
-              Sign Out
-            </Button>
           </div>
         </div>
       )}
     </header>
   );
-};
+}
