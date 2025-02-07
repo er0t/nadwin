@@ -1,3 +1,4 @@
+
 import { Link, useNavigate } from "react-router-dom";
 import { LogOut, Menu, User } from "lucide-react";
 import { Button } from "./ui/button";
@@ -39,7 +40,11 @@ export function Navbar() {
       <div className="container flex h-14 max-w-screen-2xl items-center justify-between px-4">
         <div className="flex items-center">
           <Link to="/" className="mr-6 flex items-center space-x-2">
-            <span className="gradient-text text-lg font-bold">NADWIN</span>
+            <img 
+              src="/lovable-uploads/59bd207e-2985-44bf-b24a-350c88201bd6.png" 
+              alt="Nadwin Logo" 
+              className="h-8 w-auto"
+            />
           </Link>
           {!isMobile && (
             <nav className="flex items-center space-x-6">
