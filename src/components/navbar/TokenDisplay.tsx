@@ -27,10 +27,7 @@ export function TokenDisplay() {
 
   return (
     <div className="flex items-center gap-2">
-      <div className="flex items-center gap-2">
-        <Coins className="h-5 w-5 text-[#9b87f5]" />
-        <span className="text-sm font-medium">Nadronix Points</span>
-      </div>
+      <Coins className="h-5 w-5 text-[#9b87f5]" />
       <span className="font-medium text-[#9b87f5]">
         {rewards?.nadronix_points || 0}
       </span>
