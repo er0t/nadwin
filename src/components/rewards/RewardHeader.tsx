@@ -23,7 +23,7 @@ export const RewardHeader = () => {
     enabled: !!user,
   });
 
-  const showMilestoneMessage = userRewards?.nadronix_points >= 1000;
+  const showMilestoneMessage = userRewards?.nadronix_points >= 500;
 
   return (
     <section className="glass-panel mt-8 p-8 relative overflow-hidden">
@@ -50,7 +50,7 @@ export const RewardHeader = () => {
             <div>
               <h3 className="font-bold text-[#9b87f5] mb-1">Achievement Unlocked! 🎉</h3>
               <p className="text-foreground/80">
-                You've reached <span className="text-[#1EAEDB]">1000 points</span>! Check your email
+                You've reached <span className="text-[#1EAEDB]">500 points</span>! Check your email
                 within the next 48 hours - we'll send you special reward codes!
               </p>
             </div>
