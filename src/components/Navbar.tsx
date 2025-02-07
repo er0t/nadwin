@@ -1,4 +1,3 @@
-
 import { Link, useNavigate } from "react-router-dom";
 import { LogOut, Menu, User } from "lucide-react";
 import { Button } from "./ui/button";
@@ -98,34 +97,32 @@ export function Navbar() {
       {/* Mobile Menu */}
       {isMobile && isMenuOpen && user && (
         <div className="absolute top-[56px] left-0 right-0 animate-in slide-in-from-top duration-300 border-t border-border/40 bg-background/95 backdrop-blur-xl">
-          <div className="container py-4 space-y-3">
+          <div className="container py-4 space-y-4">
             <Link 
               to="/rewards" 
               className="flex items-center px-4 py-3 text-sm hover:bg-[#9b87f5]/10 rounded-lg transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              <div className="flex items-center flex-1">
-                <span className="text-foreground/80">Rewards</span>
-              </div>
+              <span className="text-foreground/80">Rewards</span>
             </Link>
             
-            <div className="px-4 py-2 space-y-3">
-              <div className="bg-gaming-card/50 rounded-lg p-3">
+            <div className="space-y-2 px-4">
+              <div className="flex items-center justify-between p-3 rounded-lg bg-[#9b87f5]/5 border border-[#9b87f5]/10">
                 <TokenDisplay />
               </div>
-              <div className="bg-gaming-card/50 rounded-lg p-3">
+              <div className="flex items-center justify-between p-3 rounded-lg bg-[#9b87f5]/5 border border-[#9b87f5]/10">
                 <DailySpin />
               </div>
             </div>
 
-            <div className="border-t border-border/40 pt-3">
+            <div className="border-t border-border/40 mt-2 pt-4">
               <div className="px-4">
                 <UserMenu />
               </div>
               <Button 
                 variant="ghost" 
                 onClick={handleLogout}
-                className="w-full justify-start mt-2 px-4 py-3 text-[#9b87f5] hover:text-[#c4b8f7] hover:bg-[#9b87f5]/10"
+                className="w-full justify-start mt-3 px-4 py-3 text-[#9b87f5] hover:text-[#c4b8f7] hover:bg-[#9b87f5]/10"
               >
                 <LogOut className="h-5 w-5 mr-2" />
                 Sign Out
