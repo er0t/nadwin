@@ -43,7 +43,7 @@ export function Navbar() {
             <img 
               src="/lovable-uploads/59bd207e-2985-44bf-b24a-350c88201bd6.png" 
               alt="Nadwin Logo" 
-              className="h-8 w-auto"
+              className="h-12 w-auto"
             />
           </Link>
           {!isMobile && (
